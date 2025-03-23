@@ -1,48 +1,48 @@
-// Cria o menu de contexto
+// Create the context menu
 chrome.runtime.onInstalled.addListener(() => {
-  // Menu principal
+  // Main menu
   chrome.contextMenus.create({
     id: "nihongoClick",
     title: "NihongoClick",
     contexts: ["selection"]
   });
 
-  // Submenu: Vocabulário
+  // Submenu: Vocabulary
   chrome.contextMenus.create({
-    id: "vocabulario",
+    id: "vocabulary",
     parentId: "nihongoClick",
-    title: "Vocabulário",
+    title: "Vocabulary",
     contexts: ["selection"]
   });
 
-  chrome.contextMenus.create({ id: "kotobank", parentId: "vocabulario", title: "Kotobank (JP-PT)", contexts: ["selection"] });
-  chrome.contextMenus.create({ id: "alc", parentId: "vocabulario", title: "英辞郎 (JP-EN)", contexts: ["selection"] });
-  chrome.contextMenus.create({ id: "daijisen", parentId: "vocabulario", title: "大辞泉 (Monolingual)", contexts: ["selection"] });
-  chrome.contextMenus.create({ id: "weblioSynonyms", parentId: "vocabulario", title: "Weblio - Quase-sinônimos", contexts: ["selection"] });
-  chrome.contextMenus.create({ id: "weblioAntonyms", parentId: "vocabulario", title: "Weblio - Antônimos", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "kotobank", parentId: "vocabulary", title: "Kotobank (JP-PT)", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "alc", parentId: "vocabulary", title: "Eijirou (JP-EN)", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "daijisen", parentId: "vocabulary", title: "Daijisen (Monolingual)", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "weblioSynonyms", parentId: "vocabulary", title: "Weblio - Synonyms", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "weblioAntonyms", parentId: "vocabulary", title: "Weblio - Antonyms", contexts: ["selection"] });
 
   // Submenu: Kanji (Jitenon)
   chrome.contextMenus.create({ id: "kanji", parentId: "nihongoClick", title: "Kanji", contexts: ["selection"] });
   chrome.contextMenus.create({ id: "jitenonEn", parentId: "kanji", title: "Jitenon (EN)", contexts: ["selection"] });
   chrome.contextMenus.create({ id: "jitenonJp", parentId: "kanji", title: "Jitenon (JP)", contexts: ["selection"] });
 
-  // Submenu: Exemplos de Frases
+  // Submenu: Sentence Examples
   chrome.contextMenus.create({
-    id: "sentencas",
+    id: "sentences",
     parentId: "nihongoClick",
-    title: "Exemplos de Frases",
+    title: "Sentence Examples",
     contexts: ["selection"]
   });
 
-  chrome.contextMenus.create({ id: "nadeshiko", parentId: "sentencas", title: "Nadeshiko", contexts: ["selection"] });
-  chrome.contextMenus.create({ id: "immersionkit", parentId: "sentencas", title: "ImmersionKit", contexts: ["selection"] });
-  chrome.contextMenus.create({ id: "youglish", parentId: "sentencas", title: "YouGlish", contexts: ["selection"] });
-  chrome.contextMenus.create({ id: "sentencesearch", parentId: "sentencas", title: "Sentence Search", contexts: ["selection"] });
-  chrome.contextMenus.create({ id: "massif", parentId: "sentencas", title: "Massif", contexts: ["selection"] });
-  chrome.contextMenus.create({ id: "yourei", parentId: "sentencas", title: "Yourei", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "nadeshiko", parentId: "sentences", title: "Nadeshiko", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "immersionkit", parentId: "sentences", title: "ImmersionKit", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "youglish", parentId: "sentences", title: "YouGlish", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "sentencesearch", parentId: "sentences", title: "Sentence Search", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "massif", parentId: "sentences", title: "Massif", contexts: ["selection"] });
+  chrome.contextMenus.create({ id: "yourei", parentId: "sentences", title: "Yourei", contexts: ["selection"] });
 });
 
-// Ação ao clicar
+// Handle click events
 chrome.contextMenus.onClicked.addListener((info) => {
   const query = info.selectionText.trim();
   const encoded = encodeURIComponent(query);
@@ -51,7 +51,7 @@ chrome.contextMenus.onClicked.addListener((info) => {
   let url = "";
 
   switch (info.menuItemId) {
-    // Vocabulário
+    // Vocabulary
     case "kotobank":
       url = `https://kotobank.jp/japtword/${encoded}`;
       break;
@@ -68,7 +68,7 @@ chrome.contextMenus.onClicked.addListener((info) => {
       url = `https://thesaurus.weblio.jp/antonym/content/${encoded}`;
       break;
 
-    // Frases
+    // Sentence examples
     case "nadeshiko":
       url = `https://nadeshiko.co/search/sentence?query=${encodedQuoted}`;
       break;
@@ -99,7 +99,7 @@ chrome.contextMenus.onClicked.addListener((info) => {
         .then((kanjiMap) => {
           const id = kanjiMap[query];
           if (!id) {
-            alert(`Kanji 「${query}」 não encontrado no arquivo kanji_to_id.json.`);
+            alert(`Kanji "${query}" not found in kanji_to_id.json.`);
             return;
           }
 
@@ -110,7 +110,9 @@ chrome.contextMenus.onClicked.addListener((info) => {
             const index = Math.floor((numId - 1) / 500);
             const letter = String.fromCharCode(97 + index);
             subpath = `kanji${letter}`;
-          } else subpath = "kanjiy";
+          } else {
+            subpath = "kanjiy";
+          }
 
           const finalUrl = `https://kanji.jitenon.jp/${subpath}/${numId}`;
           chrome.tabs.create({ url: finalUrl });
