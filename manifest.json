@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "NihongoClick",
+  "version": "1.0",
+  "description": "Busca rápida de contexto e definições em japonês",
+  "permissions": ["contextMenus", "tabs"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["kanji_to_id.json"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "128": "icon.png"
+  },
+  "action": {
+    "default_icon": "icon.png",
+    "default_title": "NihongoClick"
+  }
+}
