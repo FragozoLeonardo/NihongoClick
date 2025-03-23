@@ -23,9 +23,9 @@
   - **Jitenon (EN)**
   - **Jitenon (JP)** with ID-based subpath support
 
-## ▶️ Demo
+# ▶️ Demo
 
-Watch a short demo: [https://www.youtube.com/watch?v=6xpSOsKj_XQ](https://studio.youtube.com/video/6xpSO
+Watch a short [demo](https://www.youtube.com/watch?v=6xpSOsKj_XQ)
 
 ## ⚙️ How to Install (Manual)
 
