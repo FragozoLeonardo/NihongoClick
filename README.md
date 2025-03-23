@@ -31,7 +31,7 @@ Watch a short [demo](https://www.youtube.com/watch?v=6xpSOsKj_XQ)
 
 1. Download or clone this repository:
    ```bash
-   git clone https://github.com/yourusername/NihongoClick.git
+   git clone https://github.com/FragozoLeonardo/NihongoClick.git
    ```
 
 2. Open **Chrome** and navigate to:
