@@ -23,7 +23,7 @@
   - **Jitenon (EN)**
   - **Jitenon (JP)** with ID-based subpath support
 
-# ▶️ Demo
+## ▶️ Demo
 
 Watch a short [demo](https://www.youtube.com/watch?v=6xpSOsKj_XQ)
 
